@@ -19,7 +19,7 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 /**
  *
- * @author miche
+ * @author LENOVO IP SLIM 3
  */
 public class InsertTable {
     
@@ -27,8 +27,7 @@ public class InsertTable {
     private static JdbcTemplate jdbcTemplate;
     
     public static String InsertAllTable(String url, String user, String pass) throws Exception{
-        String status =null;
-        //Convert txt to Hashmap
+        String status = null;
         try {
             InsertIntoTable(line_map_val,url,user,pass);
             status = "Table Inserted Succesfully";
@@ -39,16 +38,22 @@ public class InsertTable {
     }
     
     public static void InsertIntoTable(String data, String url, String user, String pass){
+        //Ambil data map dan key
         Map<String, String> tipe_l = HashMapFromTextFile ("map/line_map.txt");
+        String key = "";
+        for (Map.Entry<String, String> entry : tipe_l.entrySet()) {
+            key = key + entry.getKey() + ",";
+        }
         Map<String, String> tipe_t = HashMapFromTextFile ("map/table_map.txt"); 
+        for (Map.Entry<String, String> entry : tipe_t.entrySet()) {
+            key = key + entry.getKey() + ",";
+        }
+        
         BufferedReader br = null;
-        
         String[] files = new File(data).list();
-        List<String> listrequest = new ArrayList<>();
         
+        //Setting koneksi
         SingleConnectionDataSource ds = new SingleConnectionDataSource();
-        //postgre
-//        ds.setDriverClassName("org.postgresql.Driver");
         //oracle
         ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
         ds.setUrl(url);
@@ -60,107 +65,77 @@ public class InsertTable {
             for (String filename : files) {
                 String header = "";
                 int i = 0;
+                int j = 0;
                 FileReader reader = new FileReader(data + filename);
                 BufferedReader bfr = new BufferedReader(reader);
                 String line = bfr.readLine();  
                 boolean firstline = true;
 
                 while(line != null){
+                    List<String> listheader = new ArrayList<>();
                     String h = "";
+                    List<String> listvalue = new ArrayList<>();
                     String v = "";
                    
                     if (!firstline) {
                         String replace = line.replace("\"", "");
                         String[] headerr = header.split(",");
                         String[] value = replace.split(",");
+                        int length = headerr.length;
                         
-                    for (i = 0; i < headerr.length; i++) {
+                    for (i = 0; i < length; i++) {
                         String head = headerr[i].trim();
                         String val = value[i].trim();
                         String tipel = tipe_l.get(headerr[i].trim());
                         String tipet = tipe_t.get(headerr[i].trim());
                         
-                        
-                        while(!h.contains(head)) {
-                            //MenentukanTableGanda
+                        //Mengeliminasi kolom ganda dan nama kolom salah
+                        if ((!listheader.contains(head)) && ((key.toUpperCase()).contains(head.toUpperCase()))) {
+                            //Mengganti nama kolom
                             if (head.equals("MODE")) {
-                                if (i != headerr.length - 1 ) {
-                                    v = v + "\'" + val + "\'" + ",";
-                                    h = h + head + "_1,";
-                                } else {
-                                    v = v + "\'" + val + "\'";
-                                    h = h + head + "_1";
-                                }
-
+                                listvalue.add("\'" + val + "\'");
+                                listheader.add(head + "_1");
+                                
                             }
                             else if (head.equals("OPERATOR")) {
-                                if (i != headerr.length - 1 ) {
-                                    v = v + "\'" + val + "\'" + ",";
-                                    h = h + head + "_1,";
-                                } else {
-                                    v = v + "\'" + val + "\'";
-                                    h = h + head + "_1";
-                                }
+                                listvalue.add("\'" + val + "\'");
+                                listheader.add(head + "_1");
 
                             }
                             //MenentukanDataKosong
                             else if (val.equals("")) {
                                 String b = null;
-                                if (i != headerr.length - 1 ) {
-                                    v = v + b + ",";
-                                    h = h + head + ",";
-                                } else {
-                                    v = v + b;
-                                    h = h + head;
-                                }
-
+                                listvalue.add(b);
+                                listheader.add(head);
+                            
                             }
                             //Menentukan INT
                             else if ((tipel != null && tipel.equals("int")) || (tipet != null && tipet.equals("int"))) {
-                                if (i != headerr.length - 1 ) {
-                                    v = v + val + ",";
-                                    h = h + head + ",";
-                                } else {
-                                    v = v + val;
-                                    h = h + head;
-                                }
+                                listvalue.add(val);
+                                listheader.add(head);
 
                             }
                             //Menentukan Date
                             else if ((tipel != null && tipel.equals("Date")) || (tipet != null && tipet.equals("Date"))) {
                                 String b = "\'" + val.substring(0, 4) + "-" + val.substring(4, 6) + "-" + val.substring(6, 8) + "\'";
-                                if (i != headerr.length - 1 ) {
-                                    v = v + "TO_DATE(" + b + ",'YYYY-MM-DD')" + ",";
-                                    h = h + head + ",";
-                                } else {
-                                    v = v + b;
-                                    h = h + head;
-                                }
+                                listvalue.add("TO_DATE(" + b + ",'YYYY-MM-DD')");
+                                listheader.add(head);
 
                             }
                             //Menentukan Time
                             else if (head.equals("RCVTIME")) {
                                 String b = null;
-                                if (i != headerr.length - 1 ) {
-                                    v = v + b + ",";
-                                    h = h + head + ",";
-                                } else {
-                                    v = v + b;
-                                    h = h + head;
-                                }
+                                listvalue.add(b);
+                                listheader.add(head);
 
                             }
                             else {
-                                if (i != headerr.length - 1 ) {
-                                    v = v + "\'" + val + "\'" + ",";
-                                    h = h + head + ",";
-                                } else {
-                                    v = v + "\'" + val + "\'";
-                                    h = h + head;
-                                }
+                                listvalue.add("\'" + val + "\'");
+                                listheader.add(head);
 
                             }
                         }
+                        
                     }
                     } else {
                         header = line;
@@ -168,6 +143,18 @@ public class InsertTable {
                         firstline = false;
                     }
                     
+                    //Menggabungkan data
+                    for (j = 0; j < listheader.size(); j++) {
+                        if (j != listheader.size() - 1){
+                            v = v + listvalue.get(j) + ",";
+                            h = h + listheader.get(j) + ",";
+                        } else {
+                            v = v + listvalue.get(j);
+                            h = h + listheader.get(j);
+                        }
+                    }
+                    
+                    //Insert data
                     if (h != null) {
                         try {
                             if (h.contains("HoyaItemType")){
