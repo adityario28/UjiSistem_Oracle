@@ -4,9 +4,9 @@
  */
 package com.tugasrancang.postgree;
 
-import static com.tugasrancang.postgree.CreateTable.CreateTable;
-import static com.tugasrancang.postgree.CreateTable.line_map_path;
-import static com.tugasrancang.postgree.CreateTable.table_map_path;
+//import static com.tugasrancang.postgree.CreateTable.CreateTable;
+//import static com.tugasrancang.postgree.CreateTable.line_map_path;
+//import static com.tugasrancang.postgree.CreateTable.table_map_path;
 import static com.tugasrancang.postgree.Mapping.HashMapFromTextFile;
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,7 +23,7 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
  */
 public class InsertTable {
     
-    final static String line_map_val = "C:\\Users\\LENOVO IP SLIM 3\\Documents\\Semester 9\\Uji Sistem\\TR UJI SISTEM\\All_Data-5\\Data-5\\ALL\\";
+    final static String line_map_val = "D:\\Ujisistem_tugas\\Data-5\\All\\";
     private static JdbcTemplate jdbcTemplate;
     
     public static String InsertAllTable(String url, String user, String pass) throws Exception{
@@ -123,12 +123,12 @@ public class InsertTable {
 
                             }
                             //Menentukan Time
-                            else if (head.equals("RCVTIME")) {
+                           /* else if (head.equals("RCVTIME")) {
                                 String b = null;
                                 listvalue.add(b);
                                 listheader.add(head);
 
-                            }
+                            }*/
                             else {
                                 listvalue.add("\'" + val + "\'");
                                 listheader.add(head);
