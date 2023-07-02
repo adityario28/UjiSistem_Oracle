@@ -16,6 +16,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
@@ -26,18 +28,23 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 public class CreateTable {
    // final static String line_map_path = "map/line_map.txt";
     //final static String table_map_path = "map/table_map.txt";
-    //private static JdbcTemplate jdbcTemplate;
+    private static JdbcTemplate jdbcTemplate;
     
+@Autowired
+    public CreateTable(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
   public static String CreateAllTable(String url, String user, String pass){
         List<String> fileNames = new ArrayList<>();
-        fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\line_map_1.txt"); // Provide the path to your first text file here
-        fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\table_map_1.txt"); // Provide the path to your second text file here
+//        fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\line_map_1.txt"); // Provide the path to your first text file here
+//        fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\table_map_1.txt"); // Provide the path to your second text file here
+        fileNames.add("D:\\Tugas\\Semester9\\Pengujian Sistem\\Testing\\src\\main\\java\\map\\line_map_1.txt"); // Provide the path to your first text file here
+        fileNames.add("D:\\Tugas\\Semester9\\Pengujian Sistem\\Testing\\src\\main\\java\\map\\table_map_1.txt"); // Provide the path to your second text file here
         // Add more file names if necessary
         
         try {
             // Establish database connection
             Connection connection = DriverManager.getConnection(url,user,pass);
-
             for (String fileName : fileNames) {
                 // Read the text file
                 List<String> tableData = readTableDataFromFile(fileName);
@@ -64,6 +71,7 @@ public class CreateTable {
 
             // Close resources
             connection.close();
+//            ds.destroy();
         } catch (Exception e) {
             e.printStackTrace();
         }
