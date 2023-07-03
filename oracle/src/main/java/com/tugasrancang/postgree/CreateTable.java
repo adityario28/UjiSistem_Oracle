@@ -47,10 +47,10 @@ public class CreateTable {
     
   public static String CreateAllTable(String url, String user, String pass){
         List<String> fileNames = new ArrayList<>();
-        fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\line_map_1.txt"); // Provide the path to your first text file here
-     fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\table_map_1.txt"); // Provide the path to your second text file here
- //       fileNames.add("D:\\Tugas\\Semester9\\Pengujian Sistem\\Testing\\src\\main\\java\\map\\line_map_1.txt"); // Provide the path to your first text file here
-   //     fileNames.add("D:\\Tugas\\Semester9\\Pengujian Sistem\\Testing\\src\\main\\java\\map\\table_map_1.txt"); // Provide the path to your second text file here
+        //fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\line_map_1.txt"); // Provide the path to your first text file here
+     //fileNames.add("D:\\Ujisistem_tugas\\github_ujisistem\\UjiSistem_Oracle\\oracle\\src\\main\\resources\\map\\table_map_1.txt"); // Provide the path to your second text file here
+    fileNames.add("D:\\Tugas\\Semester9\\Pengujian Sistem\\Testing\\src\\main\\java\\map\\line_map_1.txt"); // Provide the path to your first text file here
+        fileNames.add("D:\\Tugas\\Semester9\\Pengujian Sistem\\Testing\\src\\main\\java\\map\\table_map_1.txt"); // Provide the path to your second text file here
         // Add more file names if necessary
         
         try {
