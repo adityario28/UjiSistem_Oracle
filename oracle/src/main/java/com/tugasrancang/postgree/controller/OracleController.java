@@ -7,7 +7,9 @@ package com.tugasrancang.postgree.controller;
 import com.tugasrancang.postgree.service.OracleServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -29,6 +31,16 @@ public class OracleController {
         return status;
     }
     
-    
+    @PostMapping("/insertByte")
+    public String insertDataFromByte(@RequestBody byte[] requestData){
+        String data = new String(requestData);
+        String[] parts = data.split(":");
+        String header = new String(parts[0]);
+        String value = new String(parts[1]);
+//        String status = oracleServices.insertDataFromByte(header, value);
+        System.out.println("Header: " + header);
+        System.out.println("Value: " + value);
+        return "";
+    }
     
 }

@@ -52,6 +52,21 @@ public class InsertTable {
         return status;
     }
     
+    public static String InsertByte(String header, String value) throws Exception {
+         String status = null;
+        try {
+                            if (header.contains("HoyaItemType")){
+                                   jdbcTemplate.execute("INSERT INTO TABLESTOCK (" + header + ") VALUES (" + value + ")");
+                            } else {
+                                   jdbcTemplate.execute("INSERT INTO LINESTOCK (" + header + ") VALUES (" + value + ")");
+                            }
+                            status = "Table Inserted Succesfully";
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+        return status;
+    }
+    
     public static void InsertIntoTable(String data){
         //Ambil data map dan key
         Map<String, String> tipe_l = HashMapFromTextFile ("map/line_map.txt");
