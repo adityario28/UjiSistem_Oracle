@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
 /**
  *
@@ -31,7 +32,7 @@ public class DBCredentials {
     
     @Bean
     public DataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(DBURL);
         dataSource.setUsername(DB_USERNAME);

@@ -31,8 +31,8 @@ public class InsertTable {
 
 //    final static String line_map_val = "D:\\Ujisistem_tugas\\Data-5fix\\Data-5\\";
 
-//    final static String line_map_val = "C:\\Users\\LENOVO IP SLIM 3\\Documents\\Semester 9\\Uji Sistem\\TR UJI SISTEM\\All_Data-5\\Data-5\\ALL\\";
-    final static String line_map_val = "D:\\Tugas\\Semester9\\Pengujian Sistem\\Data-5\\Data-5\\Full\\";
+    final static String line_map_val = "C:\\Users\\LENOVO IP SLIM 3\\Documents\\Semester 9\\Uji Sistem\\TR UJI SISTEM\\All_Data-5\\Data-5\\ALL\\";
+//    final static String line_map_val = "D:\\Tugas\\Semester9\\Pengujian Sistem\\Data-5\\Data-5\\Full\\";
 
     private static JdbcTemplate jdbcTemplate;
     
@@ -199,7 +199,7 @@ public class InsertTable {
                 catch (Exception e) {
                 };
             }
-//            ds.destroy();
+//            InsertTable.jdbcTemplate = null;
         }
     }
 }
