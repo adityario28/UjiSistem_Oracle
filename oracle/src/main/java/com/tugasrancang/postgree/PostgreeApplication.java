@@ -34,7 +34,7 @@ public class PostgreeApplication implements CommandLineRunner{
           System.out.println(CreateAllTable());
 //           System.out.println(CreateAllTable());
 //           System.out.println(InsertAllTable(DB_URL,USER,PASS));
-//            System.out.println(InsertAllTable());
+            System.out.println(InsertAllTable());
 
         }
 }

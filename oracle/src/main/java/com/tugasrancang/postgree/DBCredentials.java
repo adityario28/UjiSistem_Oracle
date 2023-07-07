@@ -32,7 +32,7 @@ public class DBCredentials {
     
     @Bean
     public DataSource dataSource(){
-        SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(DBURL);
         dataSource.setUsername(DB_USERNAME);
