@@ -5,6 +5,9 @@
 package com.tugasrancang.postgree.service;
 
 import com.tugasrancang.postgree.InsertTable;
+import com.tugasrancang.postgree.ReadTable;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +19,16 @@ import org.springframework.stereotype.Service;
 public class OracleServices {
 
     private final InsertTable insertTable;
+    private final ReadTable readTable;
 
     @Autowired
-    public OracleServices(InsertTable insertTable) {
+    public OracleServices(InsertTable insertTable, ReadTable readTable) {
         this.insertTable = insertTable;
+        this.readTable = readTable;
+    }
+
+    public List<Map<String, Object>> readAllData(String tableName, String tableName2) {
+        return readTable.readAllTable(tableName, tableName2);
     }
 
     public String insertDataFromCSV() {
@@ -31,7 +40,7 @@ public class OracleServices {
             return "Error occured while inserting data";
         }
     }
-    
+
     public double insertDataFromByte(String header, String value) {
         double waktu = 0;
         try {

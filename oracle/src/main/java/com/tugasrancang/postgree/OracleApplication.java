@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PostgreeApplication implements CommandLineRunner{
+public class OracleApplication implements CommandLineRunner{
 //    //Postgre
 //        static final String DB_URL = "jdbc:postgresql://localhost:5432/public";
 //        static final String USER = "postgres";
@@ -26,7 +26,7 @@ public class PostgreeApplication implements CommandLineRunner{
 //        static final String PASS = "mahesario28";
 //        
 	public static void main(String[] args) {
-		SpringApplication.run(PostgreeApplication.class, args);
+		SpringApplication.run(OracleApplication.class, args);
 	}
 
         @Override
