@@ -33,7 +33,7 @@ public class OracleController {
     }
     
     @PostMapping("/insertByte")
-    public String insertDataFromByte(@RequestBody String requestData){
+    public double insertDataFromByte(@RequestBody String requestData){
         JSONObject object = new JSONObject(requestData);
         String[] keys = JSONObject.getNames(object);
         String header = "";
@@ -41,14 +41,15 @@ public class OracleController {
         for (String key : keys)
         {
             Object value = object.get(key);
-            System.out.println(value.toString());
-            System.out.println(key);
+//            System.out.println(value.toString());
+//            System.out.println(key);
             header = key;
             valuee = value.toString();
             // Determine type of value and do something with it...
         }
-        String status = oracleServices.insertDataFromByte(header, valuee);
-        return status;
+        double waktu = oracleServices.insertDataFromByte(header, valuee);
+        System.out.println("Table Inserted Succesfully // Time " + String.format("%.9f", waktu) + " second");
+        return waktu;
     }
     
 }

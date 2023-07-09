@@ -12,8 +12,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,19 +54,26 @@ public class InsertTable {
         return status;
     }
     
-    public static String InsertByte(String header, String value) throws Exception {
+    public static double InsertByte(String header, String value) throws Exception {
          String status = null;
+         double waktu = 0;
         try {
                             if (header.contains("HoyaItemType")){
+                                   double awal = System.nanoTime();
                                    jdbcTemplate.execute("INSERT INTO TABLESTOCK (" + header + ") VALUES (" + value + ")");
+                                   double akhir =System.nanoTime();
+                                   waktu = (akhir - awal)/1_000_000_000.0;
                             } else {
+                                   double awal = System.nanoTime();
                                    jdbcTemplate.execute("INSERT INTO LINESTOCK (" + header + ") VALUES (" + value + ")");
+                                   double akhir =System.nanoTime();
+                                   waktu = (akhir - awal)/1_000_000_000.0;
                             }
-                            status = "Table Inserted Succesfully";
+                            status = "Table Inserted Succesfully // Time " + waktu + " second";
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-        return status;
+        return waktu;
     }
     
     public static void InsertIntoTable(String data){
