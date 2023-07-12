@@ -56,6 +56,7 @@ public class InsertTable {
     
     public static double InsertByte(String header, String value) throws Exception {
          String status = null;
+//         int totalRow = 0;
          double waktu = 0;
         try {
                             if (header.contains("HoyaItemType")){
@@ -69,6 +70,7 @@ public class InsertTable {
                                    double akhir =System.nanoTime();
                                    waktu = (akhir - awal)/1_000_000_000.0;
                             }
+//                            totalRow++;
                             status = "Table Inserted Succesfully // Time " + waktu + " second";
                         } catch (Exception e) {
                             e.printStackTrace();

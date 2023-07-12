@@ -7,9 +7,9 @@ RCVTIME:Time
 SUBTRNCD:Varchar
 ORDTYPE:Varchar
 ORDERRT:int
-MODE_1:Varchar
+MODE:Varchar
 SPMODE:Varchar
-OPERATOR_1:Varchar
+OPERATOR:Varchar
 STCKPNT:int
 REFNO:Varchar
 ORGRCVNO:Varchar
